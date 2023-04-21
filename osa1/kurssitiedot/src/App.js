@@ -21,7 +21,7 @@ const Part = ({p, t}) => {
 
 // objekti tarvii propseihin ({}) sulkeet
 const Content = ({parts}) => {
-  console.log(parts)
+  
   
   return(
     <div>
@@ -33,40 +33,46 @@ const Content = ({parts}) => {
 
 }
 
-const Total = (props) => {
+const Total = ({parts}) => {
+  console.log('total saa tämän', parts[0].exercises)
+ const total = parts[0].exercises + parts[1].exercises + parts[2].exercises
 
   return(
     <div>
-      <p>Total: {props.total}</p>
+      <p>Total:  {total}</p>
     </div>
   )
 }
  
 
 const App = () => {
-  const course = 'Half Stack application development'
-
-  const parts = [
-    {name:'Fundamentals of React',
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+    {
+      name:'Fundamentals of React',
    exercises: 10},
 
-  {name: 'Using props to pass data',
+  {
+    name: 'Using props to pass data',
   exercises:  7},
 
-  {name: 'State of a component',
+  {
+    name: 'State of a component',
   exercises: 13}
   ]
+}
   
-  const total = parts[0].exercises + parts[1].exercises + parts[2].exercises
+  
   
 return (
   <div>
-    <Header course= {course}/>
-    <Content parts= {parts} />
-    <Total total = {total}/>
+    <Header course= {course.name}/>
+    <Content parts= {course.parts} />
+    <Total parts = {course.parts}/>
   </div>
 )
 
 }
-
+ 
 export default App;
