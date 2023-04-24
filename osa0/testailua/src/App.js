@@ -1,7 +1,7 @@
 import Note from './components/Note'
 
 
-// tässä lisätty kommentti
+// tässä lisätty kommentti git testia varten
 
 const App = ({notes}) => {
   
