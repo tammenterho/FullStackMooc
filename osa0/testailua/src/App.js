@@ -1,7 +1,7 @@
 import Note from './components/Note'
 
 
-
+// tässä lisätty kommentti
 
 const App = ({notes}) => {
   
