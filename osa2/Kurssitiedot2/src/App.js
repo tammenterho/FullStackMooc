@@ -13,7 +13,7 @@ const Course = (course) => {
 
     return (
       <div>
-        <p>Total: {summa} </p>
+        <b>Total: {summa} </b>
       </div>
     )
   }
