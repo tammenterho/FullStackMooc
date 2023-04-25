@@ -4,64 +4,61 @@
 const Course = (course) => {
   console.log('tämä on course', course)
 
-  
+
+  const Total = ({ total }) => {
+    console.log('total saa tämän', total)
+    const summa = total.reduce((sum, total) => sum + total.exercises, 0)
+    // https://www.youtube.com/watch?v=Wl98eZpkp-c täällä selitys
 
 
-const Header = ({header}) => {
-  console.log('otsikko tässä', header)
+    return (
+      <div>
+        <p>Total: {summa} </p>
+      </div>
+    )
+  }
 
-  return(
+  const Header = ({ header }) => {
+    console.log('otsikko tässä', header)
+
+    return (
+      <div>
+        <h1> {header} </h1>
+      </div>
+    )
+
+  }
+
+
+
+  // objekti tarvii propseihin ({}) sulkeet
+  const Content = ({ content }) => {
+    console.log('tämä on kontenttii', content)
+
+
+    return (
+      <div>
+        {content.map(cont =>
+          <p key={cont.id}>
+            {cont.name}: {cont.exercises}
+          </p>
+        )}
+        <Total total={content} />
+      </div>
+    )
+
+  }
+
+  console.log('tässä kaikki', course)
+  return (
     <div>
-      <h1> {header} </h1>
+      <Header header={course.course.name} />
+      <Content content={course.course.parts} />
+
     </div>
   )
-  
 }
 
-const Part = ({p, t}) => {
-  console.log('tämän saa Part', p, t)
-
-  return(
-    <div>
-      <p>{p}: {t}</p>
-    </div>
-  )
-}
-
-// objekti tarvii propseihin ({}) sulkeet
-const Content = ({content}) => {
-  console.log('tämä on kontenttii', content)
-  
-  return(
-    <div>
-        <Part p = {content[0].name} t = {content[0].exercises} /> 
-        <Part p = {content[1].name} t = {content[1].exercises}/> 
-        <Part p = {content[2].name} t = {content[2].exercises}/>
-    </div>
-  )
-
-}
-/*
-const Total = ({parts}) => {
-  console.log('total saa tämän', parts[0].exercises)
- const total = parts[0].exercises + parts[1].exercises + parts[2].exercises
-
-  return(
-    <div>
-      <p>Total:  {total}</p>
-    </div>
-  )
-}
-*/
-console.log('tässä kaikki', course)
-return (
-  <div>
-    <Header header={course.course.name} />
-    <Content content={course.course.parts} />
-  </div>
-)
-}
- 
 
 const App = () => {
   const course = {
