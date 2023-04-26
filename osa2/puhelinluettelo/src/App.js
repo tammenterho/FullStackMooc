@@ -1,47 +1,57 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import personService from './services/persons'
 
-const Numbers = ({ filteredPersons }) => {
+// 2.15 tähtitehtävä puuttuu
+
+const Numbers = ({ filteredPersons, setPersons, persons }) => {
+
+  const handleDelete = (id) => {
+    console.log('Yritetään poistaa', id)
+    personService
+    .remove(id)
+    .then(response => {
+      setPersons(persons.filter(person => person.id !== id))
+    })
+    console.log('poistettu', id)
+  }
 
   return (
     <div>
       {filteredPersons.map(person =>
-        <p key={person.name}>{person.name} {person.number}</p>
+        <p key={person.name}>{person.id}. {person.name} {person.number}
+        <button onClick={() => handleDelete(person.id)}>Delete</button>
+        </p>
       )}
     </div>
   )
 }
 
-const Etsi = ({persons}) => {
+const Etsi = ({ persons, setPersons }) => {
 
   const [filtteri, setNewFiltteri] = useState('')
   const handleFilter = (event) => {
     setNewFiltteri(event.target.value)
   }
-  
+
   const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(filtteri.toLowerCase()))
 
 
-  return(
+  return (
     <div>
-    etsi: <input value={filtteri} onChange={handleFilter} />
-    <Numbers filteredPersons={filteredPersons} />
+      etsi: <input value={filtteri} onChange={handleFilter} />
+      <Numbers filteredPersons={filteredPersons} setPersons={setPersons} persons={persons} />
     </div>
+    
   )
 }
 
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-  
-  // const [filtteri, setNewFiltteri] = useState('')
+
+
 
   const handleChange = (event) => {
     setNewName(event.target.value)
@@ -49,11 +59,7 @@ const App = () => {
   const handleChangeNum = (event) => {
     setNewNumber(event.target.value)
   }
-  /*
-   const handleFilter = (event) => {
-    setNewFiltteri(event.target.value)
-  }
-*/
+
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
@@ -70,18 +76,36 @@ const App = () => {
       setPersons(persons.concat(personObject))
       console.log('lisätty ', personObject)
       console.log('lista', persons)
+
+
+      personService // pitää olla addPerson sisällä
+        .create(personObject)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
-  
+  // tämä app sisällä vaan koska suoritetaan heti kun käynnistetään
+  useEffect(() => {
+    console.log('effect')
+    personService
+      .getAll()
+      .then(response => {
+        setPersons(response.data)
+        console.log('nämä tulee getAll kutsulla palvelimelta = response.data', response.data)
+      })
+  }, [])
+
+
 
 
 
   return (
     <div>
       <h2>Phonebook</h2>
-
-      {/* etsi: <input value={filtteri} onChange={handleFilter} /> */}
       <h3>Add a new</h3>
       <form>
         <div>
@@ -95,20 +119,7 @@ const App = () => {
         </div>
       </form>
       <h3>Numbers</h3>
-      <Etsi persons={persons}/>
-
-      {/*
-      {persons.map(pers =>
-        <p key={pers.name}>{pers.name} {pers.number}</p>)}
-      
-        <div>
-        {filteredPersons.map(person =>
-          <p key={person.name}>{person.name} {person.number}</p>
-        )}
-        
-      <Numbers filteredPersons={filteredPersons} />
-        */}
-
+      <Etsi persons={persons} setPersons={setPersons}/>
     </div>
   )
 
