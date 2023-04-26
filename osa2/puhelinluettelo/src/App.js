@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import personService from './services/persons'
 
 const Numbers = ({ filteredPersons }) => {
 
@@ -72,8 +73,7 @@ const App = () => {
     }
   }
 
-  // const filteredPersons = persons.filter(person => person.name.toLowerCase().includes(filtteri.toLowerCase()))
-
+  
 
 
 
