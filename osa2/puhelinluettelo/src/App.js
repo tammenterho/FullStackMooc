@@ -1,7 +1,20 @@
 import { useEffect, useState } from 'react'
 import personService from './services/persons'
+import './index.css'
 
 // 2.15 tähtitehtävä puuttuu
+
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="error">
+      {message}
+    </div>
+  )
+}
 
 const Numbers = ({ filteredPersons, setPersons, persons }) => {
 
@@ -46,12 +59,19 @@ const Etsi = ({ persons, setPersons }) => {
 }
 
 
+
+
+
+
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+ 
 
-
+  
 
   const handleChange = (event) => {
     setNewName(event.target.value)
@@ -77,6 +97,13 @@ const App = () => {
       console.log('lisätty ', personObject)
       console.log('lista', persons)
 
+      setErrorMessage(
+        `Contact '${newName}' succesfully added!`
+      )
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+
 
       personService // pitää olla addPerson sisällä
         .create(personObject)
@@ -101,11 +128,10 @@ const App = () => {
 
 
 
-
-
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       <h3>Add a new</h3>
       <form>
         <div>

@@ -16,9 +16,19 @@
       "id": 3
     },
     {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
+      "name": "Pekka Kerho",
+      "number": "0400-456543",
       "id": 4
+    },
+    {
+      "name": "Jussi Kerho",
+      "number": "050-456578",
+      "id": 5
+    },
+    {
+      "name": "Hilja Kerho",
+      "number": "0600-567654",
+      "id": 6
     }
   ]
 }
