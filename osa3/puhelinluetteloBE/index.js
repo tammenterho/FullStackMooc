@@ -29,6 +29,13 @@ let persons = [
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
 })
+app.get('/info', (req, res) => {
+  const d = new Date();
+  console.log('pvm on', d)
+  res.send(`<p>Phonebook has info for ${persons.length} people</p> 
+  <p>${d}</p>`
+  )
+})
 
 app.get('/api/persons', (req, res) => {
   res.json(persons)
@@ -53,8 +60,8 @@ app.get('/api/persons/:id', (request, response) => {
   })
 
   const generateId = () => {
-    const maxId = notes.length > 0
-      ? Math.max(...notes.map(n => n.id))
+    const maxId = persons.length > 0
+      ? Math.max(...persons.map(n => n.id))
       : 0
     return maxId + 1
   }
@@ -67,17 +74,27 @@ app.get('/api/persons/:id', (request, response) => {
         error: 'name missing' 
       })
     }
+    if (persons.some(person => person.name === body.name)) {
+      return response.status(400).json({ 
+        error: 'name already exists' 
+      })
+    }
   
     const person = {
       name: body.name,
-      number: body.number || 1234567890,
+      number: body.number,
       id: generateId(),
     }
   
     persons = persons.concat(person)
   
     response.json(person)
+    
   })
+
+
+
+
 
 const PORT = 3001
 app.listen(PORT, () => {
