@@ -26,4 +26,9 @@ h2 {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+  display: none; /* hide by default */
+}
+
+.error.show {
+  display: block; /* show when 'show' class is added */
 }

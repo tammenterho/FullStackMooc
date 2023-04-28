@@ -10,8 +10,8 @@ const Notification = ({ message }) => {
   }
 
   return (
-    <div>
-      <span className="error"> {message} </span>
+    <div className={`error ${message ? 'show' : ''}`}>
+      {message}
     </div>
   )
 }
