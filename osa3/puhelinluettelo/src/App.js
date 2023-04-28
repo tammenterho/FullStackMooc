@@ -10,8 +10,8 @@ const Notification = ({ message }) => {
   }
 
   return (
-    <div className="error">
-      {message}
+    <div>
+      <span className="error"> {message} </span>
     </div>
   )
 }
