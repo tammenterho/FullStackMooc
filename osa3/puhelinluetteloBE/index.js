@@ -3,16 +3,32 @@ const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+const Person = require('./models/person')
 
-const url =
-  `mongodb+srv://terho:<password>@test-cluster-1.yn0ozwg.mongodb.net/?retryWrites=true&w=majority`
+const url = process.env.MONGODB_URI
 
-mongoose.set('strictQuery', false)
+console.log('connecting to', url)
+
 mongoose.connect(url)
+  .then(result => {
+    console.log('connected to MongoDB')
+  })
+  .catch((error) => {
+    console.log('error connecting to MongoDB:', error.message)
+  })
+
 
 const personSchema = new mongoose.Schema({
   name: String,
   number: String,
+})
+
+personSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
 })
 
 const Person = mongoose.model('Person', personSchema)
