@@ -6,7 +6,9 @@ const mongoose = require('mongoose')
 const Person = require('./models/person')
 require('dotenv').config()
 
-const url = process.env.MONGODB_URI
+// const url = process.env.MONGODB_URI
+const url = 
+'mongodb+srv://terho:terhomikko321@test-cluster-1.yn0ozwg.mongodb.net/?retryWrites=true&w=majority'
 
 console.log('connecting to', url)
 
