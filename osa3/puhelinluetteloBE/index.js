@@ -4,6 +4,7 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const Person = require('./models/person')
+require('dotenv').config()
 
 const url = process.env.MONGODB_URI
 
@@ -31,7 +32,7 @@ personSchema.set('toJSON', {
   }
 })
 
-const Person = mongoose.model('Person', personSchema)
+
 
 app.use(express.static('build'))
 app.use(cors())
@@ -133,7 +134,7 @@ app.get('/api/persons/:id', (request, response) => {
   })
 
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
