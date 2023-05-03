@@ -6,7 +6,6 @@ require('dotenv').config()
 
 const Person = require('./models/person')
 
-
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
   console.log('Path:  ', request.path)
@@ -25,7 +24,6 @@ app.use(requestLogger)
 app.use(express.static('build'))
 
 let persons = []
-
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
@@ -51,10 +49,11 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter(person => person.id !== id)
-
-  response.status(204).end()
+  Person.findByIdAndRemove(request.params.id)
+  .then(result => {
+    response.status(204).end()
+  })
+  .catch(error => next(error))
 })
 
 const generateId = () => {
