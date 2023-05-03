@@ -31,9 +31,12 @@ app.get('/', (req, res) => {
 app.get('/info', (req, res) => {
   const d = new Date();
   console.log('pvm on', d)
+
+  Person.find({}).then(persons => {
   res.send(`<p>Phonebook has info for ${persons.length} people</p> 
   <p>${d}</p>`
   )
+})
 })
 
 app.get('/api/persons', (request, response) => {
