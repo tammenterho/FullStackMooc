@@ -83,11 +83,6 @@ const generateId = () => {
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
-  if (persons.some(person => person.name === body.name)) {
-    return response.status(400).json({
-      error: 'name already exists'
-    })
-  }
 
   const person = new Person({
     name: body.name,
@@ -100,6 +95,7 @@ app.post('/api/persons', (request, response, next) => {
   })
   .catch(error => next(error))
   // response.json(person)
+  console.log('catch ja error ainakin')
 
 })
 
