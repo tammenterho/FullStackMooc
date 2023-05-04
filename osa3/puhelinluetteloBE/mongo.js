@@ -19,9 +19,16 @@ mongoose.connect(url)
 console.log('connecting to', url)
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
+  name: {
+    type: String,
+    minlength: 3,
+    required: true
+  },
+  number: {
+    type: String,
+    required: true
+  }
+}, { validateBeforeSave: true })
 
 const Person = mongoose.model('Person', personSchema)
 
@@ -36,9 +43,3 @@ person.find({}).then(result => {
   })
   mongoose.connection.close()
 })
-/*
-person.save().then(result => {
-  console.log('person saved!')
-  mongoose.connection.close()
-})
-*/
