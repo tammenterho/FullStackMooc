@@ -33,17 +33,17 @@ return (
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Nimi</th>
-          <th>Numero</th>
+          <th style={{textAlign: 'left'}}>ID</th>
+          <th style={{textAlign: 'left'}}>Nimi</th>
+          <th style={{textAlign: 'left'}}>Numero</th>
         </tr>
       </thead>
       <tbody>
         {filteredPersons.map(person =>
           <tr key={person.name}>
-            <td>{person.id}</td>
-            <td>{person.name}</td>
-            <td>{person.number}</td>
+            <td style={{paddingRight: '1em'}}>{person.id}</td>
+            <td style={{paddingRight: '1em'}}>{person.name}</td>
+            <td style={{paddingRight: '1em'}}>{person.number}</td>
             <td><button onClick={() => handleDelete(person.id)}>Delete</button></td>
           </tr>
         )}
