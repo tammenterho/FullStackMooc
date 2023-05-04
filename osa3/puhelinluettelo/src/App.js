@@ -28,18 +28,29 @@ const Numbers = ({ filteredPersons, setPersons, persons }) => {
     console.log('poistettu', id)
   }
 
-  return (
-    <div>
-      {filteredPersons.map(person =>
-        <p key={person.name}>
-          <span style={{fontWeight: 'bold'}}>ID:</span> {person.id} {' '}
-          <span style={{fontWeight: 'bold'}}>Nimi:</span> {person.name} {' '}
-          <span style={{fontWeight: 'bold'}}>Numero:</span> {person.number} {'   '}
-        <button onClick={() => handleDelete(person.id)}>Delete</button>
-        </p>
-      )}
-    </div>
-  )
+return (
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nimi</th>
+          <th>Numero</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredPersons.map(person =>
+          <tr key={person.name}>
+            <td>{person.id}</td>
+            <td>{person.name}</td>
+            <td>{person.number}</td>
+            <td><button onClick={() => handleDelete(person.id)}>Delete</button></td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+)
 }
 
 const Etsi = ({ persons, setPersons }) => {
@@ -60,10 +71,6 @@ const Etsi = ({ persons, setPersons }) => {
     
   )
 }
-
-
-
-
 
 
 
