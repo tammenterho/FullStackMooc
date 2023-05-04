@@ -31,7 +31,10 @@ const Numbers = ({ filteredPersons, setPersons, persons }) => {
   return (
     <div>
       {filteredPersons.map(person =>
-        <p key={person.name}>ID: {person.id} Nimi: {person.name} Numero: {person.number}
+        <p key={person.name}>
+          <span style={{fontWeight: 'bold'}}>ID:</span> {person.id} {' '}
+          <span style={{fontWeight: 'bold'}}>Nimi:</span> {person.name} {' '}
+          <span style={{fontWeight: 'bold'}}>Numero:</span> {person.number} {'   '}
         <button onClick={() => handleDelete(person.id)}>Delete</button>
         </p>
       )}
