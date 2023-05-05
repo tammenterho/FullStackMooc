@@ -99,8 +99,8 @@ const App = () => {
     } else if (personObject.name.length < 3) {
       alert('name has to be at least 3 characters')
       return;
-    } else if (personObject.number.length < 8) {
-        alert('phonenumber has to be at least 3 numbers')
+    } else if (personObject.number.length < 9) {
+        alert('phonenumber has to have at least 8 numbers')
     } else {
       setPersons(persons.concat(personObject))
       console.log('lisätty ', personObject)

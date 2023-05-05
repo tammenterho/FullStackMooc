@@ -41,14 +41,14 @@ app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
 })
 app.get('/info', (req, res) => {
-  const d = new Date();
+  const d = new Date()
   console.log('pvm on', d)
 
   Person.find({}).then(persons => {
-  res.send(`<p>Phonebook has info for ${persons.length} people</p> 
+    res.send(`<p>Phonebook has info for ${persons.length} people</p> 
   <p>${d}</p>`
-  )
-})
+    )
+  })
 })
 
 app.get('/api/persons', (request, response) => {
@@ -63,12 +63,12 @@ app.get('/api/persons/:id', (request, response) => {
   })
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-  .then(result => {
-    response.status(204).end()
-  })
-  .catch(error => next(error))
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
 
 
@@ -84,8 +84,8 @@ app.post('/api/persons', (request, response, next) => {
   person.save()
     .then(savedPerson => {
       response.json(savedPerson)
-  })
-  .catch(error => next(error))
+    })
+    .catch(error => next(error))
   // response.json(person)
   console.log('catch ja error ainakin')
 
