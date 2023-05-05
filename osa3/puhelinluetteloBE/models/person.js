@@ -21,7 +21,12 @@ mongoose.connect(url)
     },
     number: {
       type: String,
-      required: true
+      required: true,
+      validate: {
+        validator: function(v) {
+          return /\d{2,3}-\d{4,5}$/.test(v);
+        }
+      }
     }
   }, { validateBeforeSave: true })
 
