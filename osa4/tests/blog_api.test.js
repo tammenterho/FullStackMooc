@@ -78,7 +78,7 @@ describe('POST-tests', () => {
         expect(blog.likes).toBe(0)
     })
 })
-
+// npm test -- -t 'DELETE-tests' suorittaa vain yhden testin, muuten npm test suorittaa kaikki
 describe('DELETE-tests', () => {
     test('is able to delete one blog with id', async () => {
         const blogs = await Blog.find({})
