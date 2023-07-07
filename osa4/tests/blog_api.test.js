@@ -16,6 +16,15 @@ test('there are only one blog', async () => {
          expect(response.body).toHaveLength(1)
 })
 
+test('blogs have id field instead of _id', async () => {
+    const response = await api.get('/api/blogs');
+
+    const blog = response.body[0];
+    expect(blog.id).toBeDefined();
+    expect(blog._id).toBeUndefined();
+
+});
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
