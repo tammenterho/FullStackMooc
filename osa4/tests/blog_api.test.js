@@ -30,59 +30,67 @@ beforeEach(async () => {
 
 describe('GET-tests', () => {
     test('returns right amount of blogs as JSON', async () => {
-      const response = await api
-        .get('/api/blogs')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
-  
-      expect(response.body).toHaveLength(2)
+        const response = await api
+            .get('/api/blogs')
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        expect(response.body).toHaveLength(2)
     })
-    test('identification is named id', async () => {    
-      const response = await api.get('/api/blogs')
-      const ids = response.body.map(b => b.id)
-  
-      expect(ids).toBeDefined()
+    test('identification is named id', async () => {
+        const response = await api.get('/api/blogs')
+        const ids = response.body.map(b => b.id)
+
+        expect(ids).toBeDefined()
     })
-  })
-  describe('POST-tests', () => {
+})
+describe('POST-tests', () => {
     test('post works and blog is saved in right format', async () => {
-      const newBlog = {
-        title: 'Type wars',
-        author: 'Robert C. Martin',
-        url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
-        likes: 2,
-      }
-  
-      await api
-        .post('/api/blogs')
-        .send(newBlog)
-        .expect(201)
-        .expect('Content-Type', /application\/json/)
-  
-      const allNotes = await api.get('/api/blogs')
-      expect(allNotes.body).toHaveLength(initialBlogs.length + 1)
+        const newBlog = {
+            title: 'Type wars',
+            author: 'Robert C. Martin',
+            url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
+            likes: 2,
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+            .expect('Content-Type', /application\/json/)
+
+        const allNotes = await api.get('/api/blogs')
+        expect(allNotes.body).toHaveLength(initialBlogs.length + 1)
     })
     test('if likes is not defined, set it to 0', async () => {
-      const newBlog = {
-        title: 'Type wars',
-        author: 'Robert C. Martin',
-        url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html'
-      }
-  
-      await api
-        .post('/api/blogs')
-        .send(newBlog)
-        .expect(201)
-  
-      const blog = await Blog.findOne({title: 'Type wars'})
-      expect(blog.likes).toBe(0)
+        const newBlog = {
+            title: 'Type wars',
+            author: 'Robert C. Martin',
+            url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html'
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(newBlog)
+            .expect(201)
+
+        const blog = await Blog.findOne({ title: 'Type wars' })
+        expect(blog.likes).toBe(0)
     })
-  
- 
-  })
+})
+
+describe('DELETE-tests', () => {
+    test('is able to delete one blog with id', async () => {
+        const blogs = await Blog.find({})
+        const blogDlt = blogs[0]
+
+        await api
+            .delete(`/api/blogs/${blogDlt.id}`)
+            .expect(204)
+    })
+})
 
 
-  
-  afterAll(async () => {
+afterAll(async () => {
     await mongoose.connection.close()
-  })
+})
