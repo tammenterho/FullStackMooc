@@ -41,6 +41,8 @@ const App = () => {
         'loggedBlogappUser', JSON.stringify(user)
       ) 
 
+      // tällä voit kirjautua ulos: window.localStorage.removeItem('loggedNoteappUser')
+
       setUser(user)
       setUsername('')
       setPassword('')
@@ -52,6 +54,12 @@ const App = () => {
     }
     console.log('logging in with', username, password)
   }
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedBlogappUser')
+    setUser(null)
+  }
+  
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -76,9 +84,12 @@ const App = () => {
       <button type="submit">login</button>
     </form>
   )
+  
 
   const blogForm = () => (
     <div>
+      <p>{user.name} has logged in</p>
+      <button onClick={handleLogout}>Log out</button>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
         
