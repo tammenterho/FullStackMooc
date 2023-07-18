@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import './styles.css';
+
 
 
 const App = () => {
@@ -39,7 +41,7 @@ const App = () => {
       // istunto ei keskeydy vaikka uudelleenladataan sivu
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
 
       // tällä voit kirjautua ulos: window.localStorage.removeItem('loggedNoteappUser')
 
@@ -59,7 +61,7 @@ const App = () => {
     window.localStorage.removeItem('loggedBlogappUser')
     setUser(null)
   }
-  
+
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -84,47 +86,67 @@ const App = () => {
       <button type="submit">login</button>
     </form>
   )
-  
 
-  const blogForm = () => (
-    <div>
-      <p>{user.name} has logged in</p>
-      <button onClick={handleLogout}>Log out</button>
-      <h2>Create New</h2>
-      <form>
-      Title:
-      <input 
-      type="title"
-      value={blogs.title}
-      name="Title"
-      ></input>
-      Author:
-      <input 
-      type="title"
-      value={blogs.title}
-      name="Title"
-      ></input>
-      URL:
-      <input 
-      type="title"
-      value={blogs.title}
-      name="Title"
-      ></input>
-      </form>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-        
-      )}
-    </div>
-  )
+  const handleCreate = (event) => {
+    event.preventDefault()
+    const blogObject = {
+      title: newBlog.title,
+      author: newBlog.author,
+      url: newBlog.url
+    }
+    blogService
+      .create(blogObject)
+        .then(returnedBlog => {
+          setBlogs(blogs.concat(returnedBlog))
+        setNewBlog('')
+      })
+  }
 
-  return (
-    <div>
-      <h1>Blogs</h1>
-      {!user && loginForm()}
-      {user && blogForm()}
-    </div>
-  )
-}
 
-export default App
+    const blogForm = () => (
+      <div>
+        <p>{user.name} has logged in</p>
+        <button onClick={handleLogout}>Log out</button>
+        <h2>Create New</h2>
+        <form onSubmit={handleCreate} className='newBlogForm'>
+          Title:
+          <input
+            type="title"
+            value={newBlog.title}
+            name="Title"
+            onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}
+          ></input>
+          Author
+          <input
+            type="author"
+            value={newBlog.author}
+            name="Author"
+            onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}
+          ></input>
+          URL
+          <input
+            type="url"
+            value={newBlog.url}
+            name="url"
+            onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}
+          ></input>
+
+          <button type="submit">create</button>
+        </form>
+        {blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} />
+
+        )}
+      </div>
+    )
+
+    return (
+      <div>
+        <h1>Blogs</h1>
+        {!user && loginForm()}
+        {user && blogForm()}
+      </div>
+    )
+  }
+
+  export default App
