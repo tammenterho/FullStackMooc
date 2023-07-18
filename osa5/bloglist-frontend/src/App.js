@@ -90,6 +90,27 @@ const App = () => {
     <div>
       <p>{user.name} has logged in</p>
       <button onClick={handleLogout}>Log out</button>
+      <h2>Create New</h2>
+      <form>
+      Title:
+      <input 
+      type="title"
+      value={blogs.title}
+      name="Title"
+      ></input>
+      Author:
+      <input 
+      type="title"
+      value={blogs.title}
+      name="Title"
+      ></input>
+      URL:
+      <input 
+      type="title"
+      value={blogs.title}
+      name="Title"
+      ></input>
+      </form>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
         
