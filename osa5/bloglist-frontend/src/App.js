@@ -3,17 +3,18 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import './styles.css';
+import Alert from '@mui/material/Alert';
 
 
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [newBlog, setNewBlog] = useState('')
-  const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [successVisible, setSuccessVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -100,6 +101,11 @@ const App = () => {
           setBlogs(blogs.concat(returnedBlog))
         setNewBlog('')
       })
+      setSuccessVisible(true)
+
+      setTimeout(() => {
+        setSuccessVisible(false)
+      }, 5000)
   }
 
 
@@ -140,8 +146,15 @@ const App = () => {
       </div>
     )
 
+    //kaksi eri errormessage tapaa, MUI ja pelkkä message
     return (
       <div>
+        {successVisible && (
+        <Alert severity="success">
+          New blog added succesfully!
+        </Alert>
+      )}
+      {errorMessage}
         <h1>Blogs</h1>
         {!user && loginForm()}
         {user && blogForm()}
