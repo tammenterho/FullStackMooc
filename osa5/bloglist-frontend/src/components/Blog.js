@@ -1,9 +1,10 @@
 import { useState } from "react"
+import '../styles.css';
 
 
 
 
-const Blog = ({blog, user}) => {
+const Blog = ({ blog, user }) => {
   const [showInfo, setShowInfo] = useState(false)
 
   console.log(user, "tässä user")
@@ -19,22 +20,32 @@ const Blog = ({blog, user}) => {
     marginBottom: 5
   }
 
-return (
-  <div style={blogStyle}>
-    {!showInfo && <div>{blog.title} {blog.author} <button onClick={toggle}>show</button></div>
-    }
-    {showInfo && 
-    <div>
-      {blog.title}
-      {blog.author}
-      {blog.url}
-      {blog.likes}
-      <button onClick={toggle}>hide</button>
+  return (
+    <div style={blogStyle} className="blogInfo">
+      {!showInfo && <div>{blog.title} <button onClick={toggle}>show</button></div>
+      }
+      {showInfo &&
+        <div>
+          <p>{blog.title}</p>
+          <p>{blog.author}</p>
+          <p> <a
+            href={blog.url}
+            style={{
+              color: "blue",
+              textDecoration: "underline",
+            }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {blog.url}
+          </a></p>
+          <p>{blog.likes}</p>
+          <button onClick={toggle}>hide</button>
+        </div>
+      }
+
     </div>
-    }
-    
-  </div>  
-)
+  )
 }
 
 export default Blog
