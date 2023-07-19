@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import './styles.css';
 import Alert from '@mui/material/Alert';
+import LoginForm from './components/loginForm';
 
 
 
@@ -63,30 +64,6 @@ const App = () => {
     setUser(null)
   }
 
-
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
-  )
 
   const handleCreate = (event) => {
     event.preventDefault()
@@ -149,6 +126,7 @@ const App = () => {
     //kaksi eri errormessage tapaa, MUI ja pelkkä message
     return (
       <div>
+        
         {successVisible && (
         <Alert severity="success">
           New blog added succesfully!
@@ -156,8 +134,19 @@ const App = () => {
       )}
       {errorMessage}
         <h1>Blogs</h1>
-        {!user && loginForm()}
+        {!user}
         {user && blogForm()}
+
+
+        <div>
+          <LoginForm
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          />
+        </div>
       </div>
     )
   }
