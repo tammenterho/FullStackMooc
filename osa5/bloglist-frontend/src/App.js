@@ -5,6 +5,7 @@ import loginService from './services/login'
 import './styles.css';
 import Alert from '@mui/material/Alert';
 import LoginForm from './components/loginForm';
+import Togglable from './components/togglable';
 
 
 
@@ -12,10 +13,14 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [newBlog, setNewBlog] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  
   const [successVisible, setSuccessVisible] = useState(false)
+  const [loginVisible, setLoginVisible] = useState(false)
+
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -132,13 +137,14 @@ const App = () => {
           New blog added succesfully!
         </Alert>
       )}
+
       {errorMessage}
+
         <h1>Blogs</h1>
-        {!user}
-        {user && blogForm()}
 
 
-        <div>
+        {!user &&
+          <Togglable buttonLabel="log in">
           <LoginForm
           username={username}
           password={password}
@@ -146,7 +152,12 @@ const App = () => {
           setPassword={setPassword}
           handleLogin={handleLogin}
           />
+          </Togglable>
+        }
+        {user && blogForm()}
+        <div>
         </div>
+        
       </div>
     )
   }
