@@ -159,8 +159,8 @@ const App = () => {
       {user && 
       <div>
       <BlogForm/> 
-      <button onClick={handleLogout}>Log out</button>
-      {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
+      <h4>logged in as {user.username}<button onClick={handleLogout}>Log out</button></h4>
+      {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user.username} />)}
       </div>
       }
       <div>
