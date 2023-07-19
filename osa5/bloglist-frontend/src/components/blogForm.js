@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Blog from './components/Blog';
-import blogService from './services/blogs';
+import Blog from '../components/Blog';
+import blogService from '../services/blogs'
 import Alert from '@mui/material/Alert';
 
 const BlogForm = () => {
@@ -23,6 +23,8 @@ const BlogForm = () => {
       setSuccessVisible(false);
     }, 5000);
   };
+
+  
 
   const [successVisible, setSuccessVisible] = useState(false);
   const [blogs, setBlogs] = useState([]);

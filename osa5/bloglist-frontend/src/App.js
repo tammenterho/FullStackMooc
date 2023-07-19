@@ -6,6 +6,7 @@ import './styles.css';
 import Alert from '@mui/material/Alert';
 import LoginForm from './components/loginForm';
 import Togglable from './components/togglable';
+import BlogForm from './components/blogForm';
 
 
 
@@ -17,7 +18,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  
+
   const [successVisible, setSuccessVisible] = useState(false)
   const [loginVisible, setLoginVisible] = useState(false)
 
@@ -79,60 +80,60 @@ const App = () => {
     }
     blogService
       .create(blogObject)
-        .then(returnedBlog => {
-          setBlogs(blogs.concat(returnedBlog))
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
         setNewBlog('')
       })
-      setSuccessVisible(true)
+    setSuccessVisible(true)
 
-      setTimeout(() => {
-        setSuccessVisible(false)
-      }, 5000)
+    setTimeout(() => {
+      setSuccessVisible(false)
+    }, 5000)
   }
 
 
-    const blogForm = () => (
-      <div>
-        <p>{user.name} has logged in</p>
-        <button onClick={handleLogout}>Log out</button>
-        <h2>Create New</h2>
-        <form onSubmit={handleCreate} className='newBlogForm'>
-          Title:
-          <input
-            type="title"
-            value={newBlog.title}
-            name="Title"
-            onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}
-          ></input>
-          Author
-          <input
-            type="author"
-            value={newBlog.author}
-            name="Author"
-            onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}
-          ></input>
-          URL
-          <input
-            type="url"
-            value={newBlog.url}
-            name="url"
-            onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}
-          ></input>
+  const blogForm = () => (
+    <div>
+      <p>{user.name} has logged in</p>
+      <button onClick={handleLogout}>Log out</button>
+      <h2>Create New</h2>
+      <form onSubmit={handleCreate} className='newBlogForm'>
+        Title:
+        <input
+          type="title"
+          value={newBlog.title}
+          name="Title"
+          onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}
+        ></input>
+        Author
+        <input
+          type="author"
+          value={newBlog.author}
+          name="Author"
+          onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}
+        ></input>
+        URL
+        <input
+          type="url"
+          value={newBlog.url}
+          name="url"
+          onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}
+        ></input>
 
-          <button type="submit">create</button>
-        </form>
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+        <button type="submit">create</button>
+      </form>
+      {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} />
 
-        )}
-      </div>
-    )
+      )}
+    </div>
+  )
 
-    //kaksi eri errormessage tapaa, MUI ja pelkkä message
-    return (
-      <div>
-        
-        {successVisible && (
+  //kaksi eri errormessage tapaa, MUI ja pelkkä message
+  return (
+    <div>
+
+      {successVisible && (
         <Alert severity="success">
           New blog added succesfully!
         </Alert>
@@ -140,26 +141,31 @@ const App = () => {
 
       {errorMessage}
 
-        <h1>Blogs</h1>
+      <h1>Blogs</h1>
 
 
-        {!user &&
-          <Togglable buttonLabel="log in">
+      {!user &&
+        <Togglable buttonLabel="log in">
           <LoginForm
-          username={username}
-          password={password}
-          setUsername={setUsername}
-          setPassword={setPassword}
-          handleLogin={handleLogin}
+            username={username}
+            password={password}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
           />
-          </Togglable>
-        }
-        {user && blogForm()}
-        <div>
-        </div>
-        
+          
+        </Togglable>
+      }
+      {user && 
+      <div>
+      <BlogForm/> <button onClick={handleLogout}>Log out</button>
       </div>
-    )
-  }
+      }
+      <div>
+      </div>
 
-  export default App
+    </div>
+  )
+}
+
+export default App
