@@ -91,43 +91,16 @@ const App = () => {
     }, 5000)
   }
 
+  const addLike = async (id, blog) => {
+    const res = await blogService.save(id, blog)
+    setBlogs(blogs
+      .map(blog => blog !== res ? blog : res)
+      .sort((a,b) => b.likes - a.likes)
+    )
+  }
 
-  const blogForm = () => (
-    <div>
-      <p>{user.name} has logged in</p>
-      <button onClick={handleLogout}>Log out</button>
-      <h2>Create New</h2>
-      <form onSubmit={handleCreate} className='newBlogForm'>
-        Title:
-        <input
-          type="title"
-          value={newBlog.title}
-          name="Title"
-          onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}
-        ></input>
-        Author
-        <input
-          type="author"
-          value={newBlog.author}
-          name="Author"
-          onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}
-        ></input>
-        URL
-        <input
-          type="url"
-          value={newBlog.url}
-          name="url"
-          onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}
-        ></input>
 
-        <button type="submit">create</button>
-      </form>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
 
-      )}
-    </div>
-  )
 
   //kaksi eri errormessage tapaa, MUI ja pelkkä message
   return (
@@ -160,7 +133,7 @@ const App = () => {
       <div>
       <BlogForm/> 
       <h4>logged in as {user.username}<button onClick={handleLogout}>Log out</button></h4>
-      {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user.username} />)}
+      {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user.username} addLike={addLike} />)}
       </div>
       }
       <div>

@@ -1,11 +1,15 @@
 import { useState } from "react"
 import '../styles.css';
+import blogService from '../services/blogs'
 
 
 
 
-const Blog = ({ blog, user }) => {
+const Blog = ({ blog, user, addLike }) => {
   const [showInfo, setShowInfo] = useState(false)
+ 
+
+  
 
   console.log(user, "tässä user")
   const toggle = () => {
@@ -19,6 +23,15 @@ const Blog = ({ blog, user }) => {
     borderWidth: 1,
     marginBottom: 5
   }
+
+  const handleLike = () => {
+    const updatedBlog = {
+      ...blog,
+      likes: blog.likes += 1
+    }
+    addLike(blog.id, updatedBlog)
+  }
+  
 
   return (
     <div style={blogStyle} className="blogInfo">
@@ -39,7 +52,7 @@ const Blog = ({ blog, user }) => {
           >
             {blog.url}
           </a></p>
-          <p>{blog.likes}</p>
+          <p>{blog.likes}<button onClick={handleLike}>like</button></p> 
           <button onClick={toggle}>hide</button>
         </div>
       }
