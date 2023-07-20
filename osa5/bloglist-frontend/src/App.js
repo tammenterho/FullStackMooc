@@ -99,7 +99,10 @@ const App = () => {
     )
   }
 
-
+  const removeBlog = async id => {
+    await blogService.remove(id)
+    setBlogs(blogs.filter(blog => blog.id !== id))
+  }
 
 
   //kaksi eri errormessage tapaa, MUI ja pelkkä message
@@ -133,7 +136,13 @@ const App = () => {
       <div>
       <BlogForm/> 
       <h4>logged in as {user.username}<button onClick={handleLogout}>Log out</button></h4>
-      {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user.username} addLike={addLike} />)}
+      {blogs.map(blog => <Blog 
+      key={blog.id} 
+      blog={blog} 
+      user={user.username} 
+      addLike={addLike}
+      removeBlog={removeBlog}
+      />)}
       </div>
       }
       <div>
