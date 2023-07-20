@@ -4,11 +4,9 @@ import '../styles.css';
 
 const Blog = ({ blog, user, addLike, removeBlog }) => {
   const [showInfo, setShowInfo] = useState(false)
- 
 
-  
 
-  console.log(user, "tässä user")
+  console.log(user, 'tässä user')
   const toggle = () => {
     setShowInfo(!showInfo)
   }
@@ -46,8 +44,8 @@ const Blog = ({ blog, user, addLike, removeBlog }) => {
           <p> <a
             href={blog.url}
             style={{
-              color: "blue",
-              textDecoration: "underline",
+              color: 'blue',
+              textDecoration: 'underline',
             }}
             target="_blank"
             rel="noopener noreferrer"

@@ -17,7 +17,7 @@ const App = () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null) // sisältää kirjautuneen käyttäjän tiedot
 
   const [successVisible, setSuccessVisible] = useState(false)
   const [loginVisible, setLoginVisible] = useState(false)
@@ -38,9 +38,10 @@ const App = () => {
     }
   }, [])
 
+  // prevent default estää, että koodia ei ajeta joka kerta kun input kentän tila muuttuu
   const handleLogin = async (event) => {
     event.preventDefault()
-
+  // tässä loginservicen loginille lähetetään nimi ja salasana jotka myöhemmin niemtään credentialseiksi
     try {
       const user = await loginService.login({
         username, password,
@@ -51,10 +52,10 @@ const App = () => {
         'loggedBlogappUser', JSON.stringify(user)
       )
 
-      // tällä voit kirjautua ulos: window.localStorage.removeItem('loggedNoteappUser')
+      // tällä voit kirjautua ulos: window.localStorage.removeItem('loggedNoteappUser') konsoliin
 
-      setUser(user)
-      setUsername('')
+      setUser(user) // nämä userin tiedot tulee sieltä backendin responsesta
+      setUsername('') // tyhjentää input-kentät
       setPassword('')
     } catch (exception) {
       setErrorMessage('wrong credentials')
@@ -67,35 +68,15 @@ const App = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogappUser')
-    setUser(null)
+    setUser(null) // userin tilaan null
   }
 
-
-  const handleCreate = (event) => {
-    event.preventDefault()
-    const blogObject = {
-      title: newBlog.title,
-      author: newBlog.author,
-      url: newBlog.url
-    }
-    blogService
-      .create(blogObject)
-      .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-        setNewBlog('')
-      })
-    setSuccessVisible(true)
-
-    setTimeout(() => {
-      setSuccessVisible(false)
-    }, 5000)
-  }
 
   const addLike = async (id, blog) => {
     const res = await blogService.save(id, blog)
     setBlogs(blogs
-      .map(blog => blog !== res ? blog : res)
-      .sort((a,b) => b.likes - a.likes)
+      .map(blog => blog !== res ? blog : res) // käy läpi kaikki blogit ja katsoo onko sama kuin res. päivittää siis vanhan tilalle uuden jossa sama id
+      .sort((a,b) => b.likes - a.likes) // sorttaa tykkäysten mukaan
     )
   }
 
@@ -153,3 +134,4 @@ const App = () => {
 }
 
 export default App
+

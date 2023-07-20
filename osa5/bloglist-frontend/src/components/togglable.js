@@ -24,4 +24,6 @@ const Togglable = (props) => {
   )
 }
 
+Togglable.displayName = 'Togglable'
+
 export default Togglable
