@@ -3,11 +3,12 @@ import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
 import Blog from './Blog'
 
+// Tämä auttaa ryhmittelemään testit yhteen ja selkeyttämään testiraportteja.
 describe('Blog tests', () => {
-  let container
-  const mockHandler = jest.fn()
+  let container // alustetaan container
+  const mockHandler = jest.fn() // auttaa seuraamaan jotain
 
-  const blog = {
+  const blog = { // käytetään testien suorittamiseen. Eli tämä on esimerkkiblogi
     title: 'TestBlog',
     author: 'Tester',
     url: 'testing@test.fi',
@@ -17,7 +18,7 @@ describe('Blog tests', () => {
       username: 'TestUser'
     }
   }
-
+// tehdään ennen jokaista testiä
   beforeEach(() => {
     container = render(<Blog blog={blog} addLike={mockHandler} />).container
   })
