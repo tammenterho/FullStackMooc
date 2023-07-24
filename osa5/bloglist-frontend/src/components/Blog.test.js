@@ -39,6 +39,7 @@ describe('Blog tests', () => {
     expect(div).not.toHaveStyle('display: none')
     expect(div).toHaveTextContent('testing@test.fi')
     expect(div).toHaveTextContent('TestUser')
+    // nämä on likes
     expect(div).toHaveTextContent('20')
   })
 })

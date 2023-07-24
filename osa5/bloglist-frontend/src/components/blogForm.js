@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
-import Blog from '../components/Blog';
+import React, { useState } from 'react'
+import Blog from '../components/Blog'
 import blogService from '../services/blogs'
-import Alert from '@mui/material/Alert';
+import Alert from '@mui/material/Alert'
 
 const BlogForm = () => {
-  const [newBlog, setNewBlog] = useState('');
+  const [newBlog, setNewBlog] = useState('')
 
   const handleCreate = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     const blogObject = {
       title: newBlog.title,
       author: newBlog.author,
       url: newBlog.url,
-    };
+    }
     blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog));
-      setNewBlog('');
-    });
-    setSuccessVisible(true);
+      setBlogs(blogs.concat(returnedBlog))
+      setNewBlog('')
+    })
+    setSuccessVisible(true)
 
     setTimeout(() => {
-      setSuccessVisible(false);
-    }, 5000);
-  };
+      setSuccessVisible(false)
+    }, 5000)
+  }
 
-  
 
-  const [successVisible, setSuccessVisible] = useState(false);
-  const [blogs, setBlogs] = useState([]);
+  const [successVisible, setSuccessVisible] = useState(false)
+  const [blogs, setBlogs] = useState([])
 
   return (
     <div>
@@ -61,7 +60,7 @@ const BlogForm = () => {
         <Blog key={blog.id} blog={blog} />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default BlogForm;
+export default BlogForm
