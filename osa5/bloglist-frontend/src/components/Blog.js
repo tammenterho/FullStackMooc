@@ -38,7 +38,7 @@ const Blog = ({ blog, user, addLike, removeBlog }) => {
       {!showInfo && <div>{blog.title} <button onClick={toggle}>show</button></div>
       }
       {showInfo &&
-        <div>
+        <div className="blog-all">
           <p>{blog.title}</p>
           <p>{blog.author}</p>
           <p> <a

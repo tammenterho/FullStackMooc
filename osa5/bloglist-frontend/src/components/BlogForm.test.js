@@ -1,31 +1,25 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
-import Blog from './Blog'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import BlogForm from './blogForm'
 
-// Tämä auttaa ryhmittelemään testit yhteen ja selkeyttämään testiraportteja.
-describe('Blog tests', () => {
-  let container // alustetaan container
-  const mockHandler = jest.fn() // auttaa seuraamaan jotain
+describe('BlogForm tests', () => {
 
-  const blog = { // käytetään testien suorittamiseen. Eli tämä on esimerkkiblogi
-    title: 'TestBlog',
-    author: 'Tester',
-    url: 'testing@test.fi',
-    likes: '20',
-    user: {
-      id: 1234,
-      username: 'TestUser'
-    }
-  }
-// tehdään ennen jokaista testiä
-  beforeEach(() => {
-    container = render(<Blog blog={blog} addLike={mockHandler} />).container
-  })
+  test('function from props is called with right data', async () => {
+    const createBlog = jest.fn()
+    const { container } = render(<BlogForm createBlog={createBlog} />)
 
-  test('renders title initially', () => {
-    const div = container.querySelector('.blog')
-    expect(div).toHaveTextContent('TestBlog')
+    const titleInput = container.querySelector('#title-input')
+    const authorInput = container.querySelector('#author-input')
+    const urlInput = container.querySelector('#url-input')
+    const sendButton = screen.getByText('add')
+
+    await userEvent.type(titleInput, 'Test title')
+    await userEvent.type(authorInput, 'Test author')
+    await userEvent.type(urlInput, 'test@url.fi')
+    await userEvent.click(sendButton)
+
+    expect(createBlog.mock.calls).toHaveLength(1)
   })
 })
