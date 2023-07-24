@@ -2,6 +2,7 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
 import Blog from './Blog'
+import userEvent from '@testing-library/user-event'
 
 // Tämä auttaa ryhmittelemään testit yhteen ja selkeyttämään testiraportteja.
 describe('Blog tests', () => {
