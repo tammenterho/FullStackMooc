@@ -38,8 +38,8 @@ describe('Blog app', function() {
       cy.get('button[type="submit"]').click();
 
       // Voit tarkistaa, että olet kirjautunut sisään esimerkiksi tervetuloviestin tai jonkin muun elementin avulla
-      cy.contains('Welcome, Test user!').should('be.visible');
-      cy.contains('Test user logged in.').should('be.visible');
+      cy.contains('Blogs').should('be.visible');
+      cy.contains('Create New').should('be.visible');
     });
   });
 });
