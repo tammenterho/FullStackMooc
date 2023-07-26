@@ -18,6 +18,9 @@ mongoose.connect(config.MONGODB_URI)
     logger.error('ERROR connecting', error.message)
   })
 
+  console.log(process.env.NODE_ENV);
+
+
 app.use(cors())
 app.use(express.json())
 app.use(middleware.tokenExtractor)
