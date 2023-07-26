@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/blogs';
+const baseUrl = 'http://localhost:3001/api/blogs'
 
 
 const getAll = async () => {
@@ -20,14 +20,14 @@ const updateBlog = async (blogId, updatedData) => {
   try {
     const config = {
       headers: { Authorization: token },
-    };
+    }
 
     const response = await axios.put(`/api/blogs/${blogId}`, updatedData, config);
     // Käsittely vastauksen jälkeen
-    console.log(response.data); // Tulostaa palvelimen vastauksen datan
+    console.log(response.data) // Tulostaa palvelimen vastauksen datan
   } catch (error) {
     // Käsittely virheen tapauksessa
-    console.error('Virhe PUT-pyynnössä:', error);
+    console.error('Virhe PUT-pyynnössä:', error)
   }
 };
 
