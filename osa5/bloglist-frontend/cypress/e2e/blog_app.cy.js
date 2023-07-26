@@ -6,23 +6,40 @@ describe('Blog app', function() {
       username: 'mikkomikko',
       password: 'salasana'
     }
-    cy.request('POST', 'http://localhost:3001/api/users/', user) 
+    cy.request('POST', 'http://localhost:3001/api/users/', user)
     cy.visit('http://localhost:3000')
   })
 
   it('Login button is shown', function() {
-    // Tarkista, että "Log in" -nappi on näkyvissä ja sisältää tekstin "log in"
     cy.contains('button', 'log in').should('be.visible');
   });
 
-  it('Can log in successfully', function() {
-    // Klikkaa "Log in" -painiketta
-    cy.contains('button', 'log in').click();
+  describe('Log in form', function() {
+    beforeEach(function() {
+      cy.contains('button', 'log in').click();
+    })
 
-    // Voit tarkistaa esimerkiksi, että olet kirjautunut sisään
-    // Tämä voi olla esimerkiksi tietty viesti tai elementti, joka ilmoittaa onnistuneesta kirjautumisesta.
-    // Esimerkiksi:
-    // cy.contains('Welcome, tester!').should('be.visible');
-    // Tämä olettaa, että kirjautumisen jälkeen näkymässä näytetään tervetuloviesti kirjautuneelle käyttäjälle.
+    it('should have username field', function() {
+      cy.wait(500); // Odota 500 ms
+      cy.get('[name="Username"]').should('be.visible');
+    });
+
+    it('should have password field', function() {
+      cy.wait(500); // Odota 500 ms
+      cy.get('[name="Password"]').should('be.visible');
+    });
+
+    it('should be able to log in successfully', function() {
+      // Täytä käyttäjänimi ja salasana
+      cy.get('[name="Username"]').type('mikkomikko');
+      cy.get('[name="Password"]').type('salasana');
+
+      // Klikkaa "Kirjaudu sisään" -painiketta
+      cy.get('button[type="submit"]').click();
+
+      // Voit tarkistaa, että olet kirjautunut sisään esimerkiksi tervetuloviestin tai jonkin muun elementin avulla
+      cy.contains('Welcome, Test user!').should('be.visible');
+      cy.contains('Test user logged in.').should('be.visible');
+    });
   });
 });
