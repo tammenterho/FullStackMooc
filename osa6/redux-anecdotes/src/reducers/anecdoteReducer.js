@@ -31,7 +31,7 @@ export const createAnecdoteAction = (content) => {
     type: 'CREATE_ANECDOTE',
     payload: {
       content,
-      id: getId,
+      id: getId(),
       votes: 0
     }
   }
