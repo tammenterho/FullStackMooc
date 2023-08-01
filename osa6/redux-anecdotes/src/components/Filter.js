@@ -1,16 +1,27 @@
+// components/Filter.js
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterAction } from '../reducers/filterReducer';
+
 const Filter = () => {
-    const handleChange = (event) => {
-      // input-kentän arvo muuttujassa event.target.value
-    }
-    const style = {
-      marginBottom: 10
-    }
-  
-    return (
-      <div style={style}>
-        filter <input onChange={handleChange} />
-      </div>
-    )
-  }
-  
-  export default Filter
+  const filter = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
+
+  const handleChange = (event) => {
+    const filterValue = event.target.value;
+    dispatch(setFilterAction(filterValue));
+    console.log(filterValue)
+  };
+
+  const style = {
+    marginBottom: 10,
+  };
+
+  return (
+    <div style={style}>
+      filter <input value={filter} onChange={handleChange} />
+    </div>
+  );
+};
+
+export default Filter;
