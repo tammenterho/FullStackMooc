@@ -6,7 +6,24 @@ const anecdotesAtStart = [
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
+ /*
+tai näin jolloin asObejctia ei tarvita
 
+const anecdotesAtStart = [
+  {
+    content: "If it hurts, do it more often",
+    id: Math.random().toFixed(0),
+    votes: 0
+  },
+  {
+    content: "Adding manpower to a late software project makes it later!",
+    id: Math.random().toFixed(0),
+    votes: 0
+  },
+  // Muut anekdootit...
+];
+
+ */
 const getId = () => (100000 * Math.random()).toFixed(0)
 
 const asObject = (anecdote) => {
@@ -17,7 +34,9 @@ const asObject = (anecdote) => {
   }
 }
 
-const initialState = anecdotesAtStart.map(asObject);
+const initialState = anecdotesAtStart.map(asObject)
+// Käy taulukon läpi ja tekee jokaisesta anekdootti objektin
+// initialState on tila, joka on taulukko, joka sisältää anekdootit objekteina
 
 export const voteAction = (id) => {
   return {
@@ -42,7 +61,7 @@ const anecdoteReducer = (state = initialState, action) => {
     case 'VOTE':
       const { id } = action.payload
       const updatedState = state.map(anecdote =>
-        anecdote.id === id ? { ...anecdote, votes: anecdote.votes + 1 } : anecdote
+        anecdote.id === id ? { ...anecdote, votes: anecdote.votes + 1 } : anecdote //jos id ei vastaa, anecdote ei muutu
       );
       return updatedState
 
@@ -50,9 +69,18 @@ const anecdoteReducer = (state = initialState, action) => {
       return [...state, action.payload]
     default:
       return state;
-      
+      // jos case ei ole kumpikaan noista, palautuu tila muuttumattomana
   }
 };
 
 export default anecdoteReducer;
+
+/*
+const updatedState = ... -rivi suoritetaan, joka päivittää tilan (state) map-funktion avulla. 
+Map-funktio käy läpi jokaisen anekdootin tilassa ja tarkistaa, onko anekdootin 
+id sama kuin actionin id. Jos ne ovat samat, luodaan uusi anekdootti-objekti 
+kopioimalla vanha objekti levyn operaattorilla (...anecdote) ja päivittämällä 
+äänten määrä (votes) yhdellä lisäämällä 1: votes: anecdote.votes + 1. 
+Jos id ei vastaa, palautetaan alkuperäinen anekdootti-objekti muuttumattomana: anecdote.
+*/
 
