@@ -10,9 +10,14 @@ const notificationSlice = createSlice({
         notify(state, action) {
             const content = action.payload
             return 'you voted anecdote: ' + content
+        },
+        clearNotification (state, action) {
+            return null
         }
     }
 })
 
-export const { notify } = notificationSlice.actions
+
+
+export const { notify, clearNotification } = notificationSlice.actions
 export default notificationSlice.reducer

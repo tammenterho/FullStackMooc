@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { voteAnecdote } from '../reducers/anecdoteReducer';
-import { notify } from '../reducers/notificationReducer';
+import { clearNotification, notify } from '../reducers/notificationReducer';
 import Notification from '../components/Notification'
+
 
 
 //useSelector seuraa komponentin tilan muutoksia ja päivittää komponentin aina kun jokin muuttuu
@@ -29,7 +30,15 @@ const AnecdoteList = () => {
         console.log('vote', id);
         dispatch(voteAnecdote(id));
         dispatch(notify(content, id))
-        console.log(content)
+        // Wait for 5 seconds using async/await and setTimeout
+        const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+        const clearNotificationAfterDelay = async () => {
+            await wait(5000); // Wait for 5 seconds (5000 milliseconds)
+            dispatch(clearNotification());
+        };
+        clearNotificationAfterDelay();
+
+        console.log(content);
     };
 
     return (
