@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = 'VOTE ANECDOTE'
+const initialState = 'VOTE AN ANECDOTE'
 
 
 const notificationSlice = createSlice({
