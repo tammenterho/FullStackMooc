@@ -1,7 +1,7 @@
 // components/Filter.js
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilterAction } from '../reducers/filterReducer';
+import { setFilter } from '../reducers/filterReducer';
 
 const Filter = () => {
   const filter = useSelector((state) => state.filter);
@@ -9,7 +9,7 @@ const Filter = () => {
 
   const handleChange = (event) => {
     const filterValue = event.target.value;
-    dispatch(setFilterAction(filterValue));
+    dispatch(setFilter(filterValue));
     console.log(filterValue)
   };
 
