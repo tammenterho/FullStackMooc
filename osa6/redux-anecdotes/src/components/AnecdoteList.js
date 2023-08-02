@@ -9,10 +9,12 @@ import Notification from '../components/Notification'
 const AnecdoteList = () => {
     const dispatch = useDispatch() //otetaan dispatch käyttöön, lähetetään action redux storeen
     const filter = useSelector((state) => state.filter) //useselector hakee filterin tilan reduxista
-    const anecdotes = useSelector((state) => //sama anecdooteille
-        state.anecdotes.filter((anecdote) => //hakee vain ne joiden sisältö vastaa filterin arvoa
-            anecdote.content.toLowerCase().includes(filter.toLowerCase()) //
-        )
+    const anecdotes = useSelector((state) =>
+        state.anecdotes
+            .filter((anecdote) =>
+                anecdote.content.toLowerCase().includes(filter.toLowerCase())
+            )
+            .sort((a, b) => b.votes - a.votes) // Järjestetään votesin mukaan laskevassa järjestyksessä
     );
 
     /*
@@ -26,7 +28,7 @@ const AnecdoteList = () => {
     const vote = (id, content) => {
         console.log('vote', id);
         dispatch(voteAnecdote(id));
-        dispatch(notify(content))
+        dispatch(notify(content, id))
         console.log(content)
     };
 
