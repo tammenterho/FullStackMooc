@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = 'this is notification initial state'
+const initialState = 'VOTE ANECDOTE'
 
 
 const notificationSlice = createSlice({
@@ -8,7 +8,8 @@ const notificationSlice = createSlice({
     initialState,
     reducers: {
         notify(state, action) {
-            return action.payload
+            const content = action.payload
+            return 'you voted anecdote: ' + content
         }
     }
 })
