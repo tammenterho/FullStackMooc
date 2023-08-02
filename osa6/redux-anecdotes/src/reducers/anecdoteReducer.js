@@ -47,11 +47,9 @@ const anecdoteSlice = createSlice({
     voteAnecdote(state, action) {
       const id = action.payload
       const anecdoteToChange = state.find(a => a.id === id)
-      const changedAnecdote = {
-        ...anecdoteToChange,
-        votes: anecdoteToChange.votes + 1
+      if (anecdoteToChange) {
+        anecdoteToChange.votes += 1;
       }
-      return changedAnecdote
     },
 
      createAnecdote(state, action) {
@@ -67,13 +65,4 @@ const anecdoteSlice = createSlice({
 
 export const { createAnecdote, voteAnecdote } = anecdoteSlice.actions
 export default anecdoteSlice.reducer
-
-/*
-const updatedState = ... -rivi suoritetaan, joka päivittää tilan (state) map-funktion avulla. 
-Map-funktio käy läpi jokaisen anekdootin tilassa ja tarkistaa, onko anekdootin 
-id sama kuin actionin id. Jos ne ovat samat, luodaan uusi anekdootti-objekti 
-kopioimalla vanha objekti levyn operaattorilla (...anecdote) ja päivittämällä 
-äänten määrä (votes) yhdellä lisäämällä 1: votes: anecdote.votes + 1. 
-Jos id ei vastaa, palautetaan alkuperäinen anekdootti-objekti muuttumattomana: anecdote.
-*/
 
