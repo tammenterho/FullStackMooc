@@ -29,7 +29,7 @@ const AnecdoteList = () => {
     const vote = (id, content) => {
         console.log('vote', id);
         dispatch(voteAnecdote(id));
-        dispatch(notify(content, id))
+        dispatch(notify('voted: ' + content, id))
         // Wait for 5 seconds using async/await and setTimeout
         const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
         const clearNotificationAfterDelay = async () => {

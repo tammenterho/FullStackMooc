@@ -10,7 +10,7 @@ const AnecdoteForm = () => {
         const content = event.target.anecdote.value;
         event.target.anecdote.value = '';
         dispatch(createAnecdote(content));
-        dispatch(notify(content))
+        dispatch(notify('created new anecdote: ' + content))
 
         // Wait for 5 seconds using async/await and setTimeout
         const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
