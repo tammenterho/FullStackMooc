@@ -1,5 +1,6 @@
 import AnecdoteForm from '../src/components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList';
+import Notification from './components/Notification';
 import Filter from './components/Filter';
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
       <Filter />
       <AnecdoteList />
       <AnecdoteForm />
+      <Notification />
     </div>
   )
 }
