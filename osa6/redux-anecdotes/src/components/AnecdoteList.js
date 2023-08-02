@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { voteAction } from '../reducers/anecdoteReducer';
+import { voteAnecdote } from '../reducers/anecdoteReducer';
 
 
 //useSelector seuraa komponentin tilan muutoksia ja päivittää komponentin aina kun jokin muuttuu
@@ -23,7 +23,7 @@ const AnecdoteList = () => {
 
     const vote = (id) => {
         console.log('vote', id);
-        dispatch(voteAction(id));
+        dispatch(voteAnecdote(id));
     };
 
     return (

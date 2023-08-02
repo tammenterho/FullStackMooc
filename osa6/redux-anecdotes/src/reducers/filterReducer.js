@@ -1,5 +1,5 @@
 
-const initialState = ""
+const initialState = ''
 
 const filterReducer = (state = initialState, action) => {
     switch (action.type) {

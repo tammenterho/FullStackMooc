@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit"
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -38,42 +40,33 @@ const initialState = anecdotesAtStart.map(asObject)
 // Käy taulukon läpi ja tekee jokaisesta anekdootti objektin
 // initialState on tila, joka on taulukko, joka sisältää anekdootit objekteina
 
-export const voteAction = (id) => {
-  return {
-    type: 'VOTE',
-    payload: { id },
-  };
-};
+const anecdoteSlice = createSlice({
+  name: 'anecdotes',
+  initialState,
+  reducers: {
+    voteAnecdote(state, action) {
+      const id = action.payload
+      const anecdoteToChange = state.find(a => a.id === id)
+      const changedAnecdote = {
+        ...anecdoteToChange,
+        votes: anecdoteToChange.votes + 1
+      }
+      return changedAnecdote
+    },
 
-export const createAnecdoteAction = (content) => {
-  return {
-    type: 'CREATE_ANECDOTE',
-    payload: {
-      content,
-      id: getId(),
-      votes: 0
+     createAnecdote(state, action) {
+      const content = action.payload
+      state.push({
+        content,
+        id: getId(),
+        votes: 0
+      })
     }
   }
-}
+})
 
-const anecdoteReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'VOTE':
-      const { id } = action.payload
-      const updatedState = state.map(anecdote =>
-        anecdote.id === id ? { ...anecdote, votes: anecdote.votes + 1 } : anecdote //jos id ei vastaa, anecdote ei muutu
-      );
-      return updatedState
-
-      case 'CREATE_ANECDOTE':
-      return [...state, action.payload]
-    default:
-      return state;
-      // jos case ei ole kumpikaan noista, palautuu tila muuttumattomana
-  }
-};
-
-export default anecdoteReducer;
+export const { createAnecdote, voteAnecdote } = anecdoteSlice.actions
+export default anecdoteSlice.reducer
 
 /*
 const updatedState = ... -rivi suoritetaan, joka päivittää tilan (state) map-funktion avulla. 
