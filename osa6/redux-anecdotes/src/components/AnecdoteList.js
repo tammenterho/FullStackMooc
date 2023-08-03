@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { voteAnecdote } from '../reducers/anecdoteReducer';
+import { setAnecdotes, voteAnecdote } from '../reducers/anecdoteReducer';
 import { clearNotification, notify } from '../reducers/notificationReducer';
 import Notification from '../components/Notification'
+import anecdotes from '../services/anecdotes'
 
 
 
@@ -18,6 +19,7 @@ const AnecdoteList = () => {
             .sort((a, b) => b.votes - a.votes) // Järjestetään votesin mukaan laskevassa järjestyksessä
     );
 
+    
     /*
     const anecdotes = useSelector(function (state) {
     return state.anecdotes.filter(function (anecdote) {

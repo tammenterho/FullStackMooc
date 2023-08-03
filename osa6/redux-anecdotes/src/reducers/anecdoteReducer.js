@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-
+/*
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -27,7 +27,7 @@ const anecdotesAtStart = [
 
  */
 const getId = () => (100000 * Math.random()).toFixed(0)
-
+/*
 const asObject = (anecdote) => {
   return {
     content: anecdote,
@@ -35,14 +35,15 @@ const asObject = (anecdote) => {
     votes: 0
   }
 }
-
+ /*
 const initialState = anecdotesAtStart.map(asObject)
 // Käy taulukon läpi ja tekee jokaisesta anekdootti objektin
 // initialState on tila, joka on taulukko, joka sisältää anekdootit objekteina
+*/
 
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
-  initialState,
+  initialState: [],
   reducers: {
     voteAnecdote(state, action) {
       const id = action.payload
@@ -59,10 +60,16 @@ const anecdoteSlice = createSlice({
         id: getId(),
         votes: 0
       })
+    },
+    appendAnecdote(state, action) {
+      state.push(action.payload)
+    },
+    setAnecdotes(state, action) {
+      return action.payload
     }
   }
 })
 
-export const { createAnecdote, voteAnecdote } = anecdoteSlice.actions
+export const { createAnecdote, voteAnecdote, appendAnecdote, setAnecdotes } = anecdoteSlice.actions
 export default anecdoteSlice.reducer
 
