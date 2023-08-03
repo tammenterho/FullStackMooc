@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAnecdotes, voteAnecdote } from '../reducers/anecdoteReducer';
+import { setAnecdotes, updateAnecdote, voteAnecdote } from '../reducers/anecdoteReducer';
 import { clearNotification, notify } from '../reducers/notificationReducer';
 import Notification from '../components/Notification'
 import anecdotes from '../services/anecdotes'
@@ -31,10 +31,14 @@ const AnecdoteList = () => {
     });
     */
 
-    const vote = (id, content) => {
-        console.log('vote', id);
-        dispatch(voteAnecdote(id));
-        dispatch(notify('voted: ' + content, id))
+    const vote = (content) => {
+
+        console.log('vote', content.id);
+
+        dispatch(updateAnecdote(content));
+
+        dispatch(notify('voted: ' + JSON.stringify(content.content)))
+
         // Wait for 5 seconds using async/await and setTimeout
         const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
         const clearNotificationAfterDelay = async () => {
@@ -53,7 +57,7 @@ const AnecdoteList = () => {
                     <div>{anecdote.content}</div>
                     <div>
                         has {anecdote.votes}
-                        <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+                        <button onClick={() => vote(anecdote)}>vote</button>
                     </div>
                 </div>
             ))}

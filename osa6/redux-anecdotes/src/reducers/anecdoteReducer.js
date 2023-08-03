@@ -12,16 +12,17 @@ const anecdoteSlice = createSlice({
   initialState: [],
   reducers: {
     voteAnecdote(state, action) {
-      const id = action.payload
-      const anecdoteToChange = state.find(a => a.id === id)
-      if (anecdoteToChange) {
-        anecdoteToChange.votes += 1;
-      }
-    },
+      const votedAnecdote = action.payload
+      const id = votedAnecdote.id
+      return state
+      .map(a => a.id !== id ? a : votedAnecdote)
+      .sort((a,b) => b.votes - a.votes)
+  },
 
-    setAnecdotes(state, action) {
-      return action.payload
-    },
+  setAnecdotes(state, action) {
+    return action.payload
+      .sort((a,b) => b.votes - a.votes)
+  },
     appendAnecdote(state, action) {
       state.push(action.payload)
     }
@@ -44,10 +45,17 @@ export const createAnecdote = content => {
   }
 }
 
-export const updateAnecdote = (content) => {
+export const updateAnecdote = content => {
+  console.log("tämä on reducerissa: ", JSON.stringify(content));
   return async dispatch => {
-    const updatedAnecdote = await anecdotesService.updateAnecdote(content)
-    dispatch(voteAnecdote(updatedAnecdote))
+    const updatedAnecdote = {
+      ...content,
+      votes: content.votes + 1
+    }
+    console.log('tämä on päivitetty anekdootti: ', JSON.stringify( updatedAnecdote))
+    const updated = await anecdotesService.update(content.id, updatedAnecdote)
+    console.log('tämä on updated' + updated)
+    dispatch(voteAnecdote(updated))
   }
 }
 
