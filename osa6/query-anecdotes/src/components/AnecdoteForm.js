@@ -12,6 +12,9 @@ const AnecdoteForm = () => {
       queryClient.invalidateQueries('anecdotes')
       console.log('tämä pitäisi tulla kun luo' + anecdote.content)
       dispatch(`anecdote '${anecdote.content}' created`)
+    },
+    onError: () => {
+      dispatch('is too short, atleast 5 characters')
     }
   })
 
