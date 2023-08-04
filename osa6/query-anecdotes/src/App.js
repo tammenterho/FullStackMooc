@@ -1,16 +1,27 @@
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
-import {  useQuery } from 'react-query'
-import {  getAnecdotes } from './requests'
+import {  useMutation, useQuery, useQueryClient } from 'react-query'
+import {  getAnecdotes, updateAnecdote } from './requests'
 
 const App = () => {
+  const queryClient = useQueryClient()
 
+  const updateAnecdoteMutation = useMutation(updateAnecdote, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('anecdotes')
+    }
+  })
+  
   const handleVote = (anecdote) => {
-    console.log('vote')
+    console.log('vote ' + anecdote.id)
+    updateAnecdoteMutation.mutate({...anecdote, votes: anecdote.votes + 1})
   }
 
-const result = useQuery('notes', getAnecdotes)
+
+const result = useQuery('anecdotes', getAnecdotes, {retry: 1})
   console.log(result)
+
+  const anecdotes = result.data
 
   if ( result.isLoading ) {
     return <div>loading data...</div>
@@ -20,7 +31,6 @@ const result = useQuery('notes', getAnecdotes)
     return <div>Errori tuli</div>
   }
 
-  const anecdotes = result.data
 
   return (
     <div>
