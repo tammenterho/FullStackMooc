@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAnecdotes, updateAnecdote, voteAnecdote } from '../reducers/anecdoteReducer';
-import { clearNotification, notify } from '../reducers/notificationReducer';
+import {  updateAnecdote } from '../reducers/anecdoteReducer';
+import { clearNotification, setNotification } from '../reducers/notificationReducer';
 import Notification from '../components/Notification'
-import anecdotes from '../services/anecdotes'
+
 
 
 
@@ -37,7 +37,7 @@ const AnecdoteList = () => {
 
         dispatch(updateAnecdote(content));
 
-        dispatch(notify('voted: ' + JSON.stringify(content.content)))
+        dispatch(setNotification(`you voted '${content.content}'`, 10))
 
         // Wait for 5 seconds using async/await and setTimeout
         const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
