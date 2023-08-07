@@ -90,6 +90,11 @@ const CreateNew = (props) => {
 }
 
 const App = () => {
+
+  const padding = {
+    paddingRight: 10
+  }
+
   const [anecdotes, setAnecdotes] = useState([
     {
       content: 'If it hurts, do it more often',
@@ -133,15 +138,17 @@ const App = () => {
     <Router>
     <div>
       <h1>Software anecdotes</h1>
-      <Link to="/create">CreateNew!</Link>
-      {/*<Menu /> */}
-      <AnecdoteList anecdotes={anecdotes} />
+      <Link to="/" style={padding}>Home</Link>
+      <Link to="/create" style={padding}>CreateNew!</Link>
+      <Link to="/anecdotes" style={padding}>Anecdotes!</Link>
       <About />
-      {/*<CreateNew addNew={addNew} /> */}
+      
     </div>
     <div>
       <Routes>
-        <Route path="/create" element={<CreateNew />} />
+        <Route path="/" element={About} />
+        <Route path="/create" element={<CreateNew addNew={addNew} />} />
+        <Route path="/anecdotes" element={<AnecdoteList anecdotes={anecdotes}/>} />
       </Routes>
     </div>
     </Router>
