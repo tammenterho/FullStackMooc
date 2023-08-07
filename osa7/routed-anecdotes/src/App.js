@@ -1,7 +1,11 @@
 import { useState } from 'react'
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom'
 
 //tämä on git testi
-
+/*
 const Menu = () => {
   const padding = {
     paddingRight: 5
@@ -14,7 +18,7 @@ const Menu = () => {
     </div>
   )
 }
-
+*/
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
@@ -125,14 +129,24 @@ const App = () => {
   }
 
   return (
+    <>
+    <Router>
     <div>
       <h1>Software anecdotes</h1>
-      <Menu />
+      <Link to="/create">CreateNew!</Link>
+      {/*<Menu /> */}
       <AnecdoteList anecdotes={anecdotes} />
       <About />
-      <CreateNew addNew={addNew} />
-      <Footer />
+      {/*<CreateNew addNew={addNew} /> */}
     </div>
+    <div>
+      <Routes>
+        <Route path="/create" element={<CreateNew />} />
+      </Routes>
+    </div>
+    </Router>
+      <Footer />
+      </>
   )
 }
 
