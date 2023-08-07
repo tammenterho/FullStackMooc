@@ -1,0 +1,34 @@
+{
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": 1
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "id": 2
+    },
+    {
+      "name": "Dan Abramov",
+      "number": "12-43-234345",
+      "id": 3
+    },
+    {
+      "name": "Pekka Kerho",
+      "number": "0400-456543",
+      "id": 4
+    },
+    {
+      "name": "Jussi Kerho",
+      "number": "050-456578",
+      "id": 5
+    },
+    {
+      "name": "Hilja Kerho",
+      "number": "0600-567654",
+      "id": 6
+    }
+  ]
+}

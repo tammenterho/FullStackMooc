@@ -1,0 +1,89 @@
+{
+  "anecdotes": [
+    {
+      "content": "If it hurts, do it more often",
+      "id": "47145",
+      "votes": 3
+    },
+    {
+      "content": "Adding manpower to a late software project makes it later!",
+      "id": "21149",
+      "votes": 2
+    },
+    {
+      "content": "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
+      "id": "69581",
+      "votes": 3
+    },
+    {
+      "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+      "id": "36975",
+      "votes": 1
+    },
+    {
+      "content": "Premature optimization is the root of all evil.",
+      "id": "25170",
+      "votes": 3
+    },
+    {
+      "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
+      "id": "98312",
+      "votes": 0
+    },
+    {
+      "content": "tämä on uusi",
+      "votes": 1,
+      "id": "sFd0rlj"
+    },
+    {
+      "content": "tämä on toinen uusi",
+      "votes": 2,
+      "id": "sKJhv-L"
+    },
+    {
+      "content": "tämä on kolmas uusi",
+      "votes": 1,
+      "id": "g8tTKIM"
+    },
+    {
+      "content": "tämä on uusi",
+      "votes": 0,
+      "id": "GEfSVSP"
+    },
+    {
+      "content": "tämä on uusi taas",
+      "votes": 0,
+      "id": "Z0Bz2i5"
+    },
+    {
+      "content": "uusi blogipostaus on tämä tässä",
+      "votes": 0,
+      "id": "weiYoPf"
+    },
+    {
+      "content": "tämä uusi anekdootti pitäisi tehdä ilmoituksen",
+      "votes": 0,
+      "id": "IJdKc76"
+    },
+    {
+      "content": "asfsf sdgfsg fdsg dfg",
+      "votes": 0,
+      "id": "RV68RLj"
+    },
+    {
+      "content": "hsthth rth dh tfh dft hfdth",
+      "votes": 0,
+      "id": "tqprHon"
+    },
+    {
+      "content": "ytuty yt uyt ryjrt",
+      "votes": 0,
+      "id": "UjsdUL9"
+    },
+    {
+      "content": "nyt toimii ilmoitus",
+      "votes": 0,
+      "id": "nFAfLfZ"
+    }
+  ]
+}
