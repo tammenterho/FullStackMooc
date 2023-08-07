@@ -1,5 +1,24 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from "react-router-dom";
+
+const Notification = ({ message }) => {
+  const notificationStyle = {
+    color: "green",
+    background: "lightgrey",
+    fontSize: 20,
+    borderStyle: "solid",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  };
+
+  if (message === "") {
+    return null;
+  }
+
+  return <div style={notificationStyle}>{message}</div>
+};
+
 
 
 const Anecdote = ({ anecdotes }) => {
@@ -67,6 +86,7 @@ const Footer = () => (
 );
 
 const CreateNew = (props) => {
+  const navigate = useNavigate()
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [info, setInfo] = useState("");
@@ -79,6 +99,8 @@ const CreateNew = (props) => {
       info,
       votes: 0,
     });
+    navigate("/")
+    
   };
 
   return (
@@ -141,10 +163,14 @@ const App = () => {
   ]);
 
   const [notification, setNotification] = useState("");
-
+  
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000);
     setAnecdotes(anecdotes.concat(anecdote));
+    setNotification("A new anecdote has been added!");
+    setTimeout(() => {
+      setNotification("");
+    }, 5000);
   };
 
   const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
@@ -181,6 +207,9 @@ const App = () => {
           </Routes>
         </div>
       </Router>
+      <div>
+        <Notification message={notification} />
+      </div>
       <div style={low}>
       <Footer  />
       </div>
