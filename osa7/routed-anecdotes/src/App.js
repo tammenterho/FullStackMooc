@@ -90,7 +90,8 @@ const CreateNew = (props) => {
   const content = useField("text")
   const author = useField("text")
   const info = useField("text")
-  const reset = useField("button")
+  // const reset = useField("button")
+  const { reset, ...contentProps } = content
 
   const navigate = useNavigate()
  
@@ -109,19 +110,22 @@ const CreateNew = (props) => {
     content.reset();
     author.reset();
     info.reset();
-  };
+  }
+
 
   //Koska oliolla name on nyt täsmälleen ne kentät, 
   // jotka input-komponentti odottaa saavansa propseina, 
   //voimme välittää propsit hyödyntäen spread-syntaksia ...content
+  // ...content pitää sisällään typen, valuen ja tapahtumakäsittelijän
   return (
     <div>
       <h2>create a new anecdote</h2>
       <form onSubmit={handleSubmit}>
         <div>
           content
+          
           <input 
-          {...content}
+          {...contentProps}
           />
         </div>
         <div>
