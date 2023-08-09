@@ -111,17 +111,17 @@ const CreateNew = (props) => {
     info.reset();
   };
 
-
+  //Koska oliolla name on nyt täsmälleen ne kentät, 
+  // jotka input-komponentti odottaa saavansa propseina, 
+  //voimme välittää propsit hyödyntäen spread-syntaksia ...content
   return (
     <div>
       <h2>create a new anecdote</h2>
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input
-            type={content.type}
-            value={content.value}
-            onChange={content.onChange}
+          <input 
+          {...content}
           />
         </div>
         <div>
