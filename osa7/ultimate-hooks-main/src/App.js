@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+
 const useField = (type) => {
   const [value, setValue] = useState('')
 
@@ -18,7 +19,13 @@ const useField = (type) => {
 const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
 
-  // ...
+  useEffect(() => {
+    axios.get(baseUrl).then(res => setResources(res.data))
+  }, [])
+
+  console.log("nämä on resurssit" + JSON.stringify(resources))
+
+
 
   const create = (resource) => {
     // ...
@@ -41,6 +48,7 @@ const App = () => {
   const [notes, noteService] = useResource('http://localhost:3005/notes')
   const [persons, personService] = useResource('http://localhost:3005/persons')
 
+  
   const handleNoteSubmit = (event) => {
     event.preventDefault()
     noteService.create({ content: content.value })
