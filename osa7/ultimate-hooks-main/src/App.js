@@ -28,8 +28,10 @@ const useResource = (baseUrl) => {
 
 
   const create = (resource) => {
-    // ...
+    axios.post(baseUrl, resource).then(res => res.data)
   }
+
+ 
 
   const service = {
     create
