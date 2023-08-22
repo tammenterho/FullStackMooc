@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
-import Blog from '../components/Blog';
-import blogService from '../services/blogs';
-import Alert from '@mui/material/Alert';
+import React, { useState } from "react";
+import Blog from "../components/Blog";
+import blogService from "../services/blogs";
+import Alert from "@mui/material/Alert";
+import { AlertTitle } from "@mui/material";
 
-const BlogForm = () => {
-  const [newBlog, setNewBlog] = useState('');
+const BlogForm = ({ setBlogs, blogs }) => {
+  const [successVisible, setSuccessVisible] = useState(false);
+  const [newBlog, setNewBlog] = useState({
+    title: "",
+    author: "",
+    url: "",
+  });
 
-  const handleCreate = (event) => {
+  const handleCreate = async (event) => {
     event.preventDefault();
     const blogObject = {
       title: newBlog.title,
       author: newBlog.author,
       url: newBlog.url,
     };
-    blogService.create(blogObject).then((returnedBlog) => {
+    try {
+      const returnedBlog = await blogService.create(blogObject); // Muutettu await
       setBlogs(blogs.concat(returnedBlog));
-      setNewBlog('');
-    });
-    setSuccessVisible(true);
-
-    setTimeout(() => {
-      setSuccessVisible(false);
-    }, 5000);
+      setNewBlog("");
+      setSuccessVisible(true);
+      setTimeout(() => {
+        setSuccessVisible(false);
+      }, 5000);
+    } catch (error) {
+      console.log("Error creating blog:", error);
+    }
   };
 
-  const [successVisible, setSuccessVisible] = useState(false);
-  const [blogs, setBlogs] = useState([]);
+  // const [blogs, setBlogs] = useState([]);
 
   return (
     <div>
@@ -60,9 +67,11 @@ const BlogForm = () => {
         ></input>
         <button type="submit">create</button>
       </form>
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
+      <div className="alert">
+        {successVisible && (
+          <Alert severity="success">New blog added successfully!</Alert>
+        )}
+      </div>
     </div>
   );
 };
