@@ -1,14 +1,12 @@
 .newBlogForm {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
 }
 
 .newBlogForm input {
-    width: 30%; /* Määritä haluamasi leveys, esim. 300px tai 50% */
-  }
+  width: 30%; /* Määritä haluamasi leveys, esim. 300px tai 50% */
+}
 .newBlogForm button {
-    width: 10%; /* Määritä haluamasi leveys, esim. 300px tai 50% */
-  }
-
-  
+  width: 10%; /* Määritä haluamasi leveys, esim. 300px tai 50% */
+}
